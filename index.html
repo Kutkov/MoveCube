@@ -39,10 +39,10 @@
 		var box = document.getElementById('box');
 		var container = document.getElementById('container');
 
-		container.style.borderRightWidth = '3px';
-		container.style.borderLeftWidth = '3px';
-		container.style.borderTopWidth = '3px';
-		container.style.borderBottomWidth = '3px';
+		container.style.borderRightWidth = '6px';
+		container.style.borderLeftWidth = '6px';
+		container.style.borderTopWidth = '6px';
+		container.style.borderBottomWidth = '6px';
 
 		var containerRight = container.style.borderRightWidth;
 		var containerLeft = container.style.borderLeftWidth;
@@ -60,7 +60,7 @@
 				pos = 0;
 				box.style.background = 'red';
 				TimeLeft = setInterval(MoveLeft, 10);
-				containerRight = parseInt(containerRight) - 1 + 'px';
+				containerRight = parseInt(containerRight) - 2 + 'px';
 				container.style.borderRightWidth = containerRight;
 			}
 			else{
@@ -76,7 +76,7 @@
 				pos = 0;
 				box.style.background = 'red';
 				TimeRight = setInterval(MoveRight, 10);
-				containerLeft = parseInt(containerLeft) - 1 + 'px';
+				containerLeft = parseInt(containerLeft) - 2 + 'px';
 				container.style.borderLeftWidth = containerLeft;
 			}
 			else{
@@ -93,7 +93,7 @@
 				clearInterval (TimeBottom);
 				box.style.background = 'red';
 				TimeTop = setInterval(MoveTop, 10);
-				containerBottom = parseInt(containerBottom) - 1 + 'px';
+				containerBottom = parseInt(containerBottom) - 2 + 'px';
 				container.style.borderBottomWidth = containerBottom;
 			}
 			else{
@@ -111,7 +111,7 @@
 				clearInterval(TimeTop);
 				box.style.background = 'red';
 				TimeBottom = setInterval(MoveBottom, 10);
-				containerTop = parseInt(containerTop) - 1 + 'px';
+				containerTop = parseInt(containerTop) - 2 + 'px';
 				container.style.borderTopWidth = containerTop;
 			}
 			else{
