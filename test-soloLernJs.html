@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SoloLern</title>
+	<style>
+		#container{
+			width: 300px;
+			height: 300px;
+			background: #ccc;
+			position: relative;
+			margin: 50px auto;
+			border-style: solid;
+			border-color: #e835df;
+		}
+		#box{
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			background: blue;
+
+		}
+
+	</style>
+</head>
+<body>
+
+		<div id="container">
+			<div id="box">
+				
+			</div>
+		</div>
+
+
+	<script>
+
+		var pos = 0;
+		var vertical = 0;
+		var box = document.getElementById('box');
+		var container = document.getElementById('container');
+
+		container.style.borderRightWidth = '3px';
+		container.style.borderLeftWidth = '3px';
+		container.style.borderTopWidth = '3px';
+		container.style.borderBottomWidth = '3px';
+
+		var containerRight = container.style.borderRightWidth;
+		var containerLeft = container.style.borderLeftWidth;
+		var containerTop = container.style.borderTopWidth;
+		var containerBottom = container.style.borderBottomWidth;
+
+		var TimeRight = setInterval(MoveRight, 10);
+		var TimeLeft;
+		var TimeBottom = setInterval(MoveBottom, 10);
+		var TimeTop;
+
+		function MoveRight(){
+			if(pos >= 250){
+				clearInterval(TimeRight);
+				pos = 0;
+				box.style.background = 'red';
+				TimeLeft = setInterval(MoveLeft, 10);
+				containerRight = parseInt(containerRight) - 1 + 'px';
+				container.style.borderRightWidth = containerRight;
+			}
+			else{
+				pos += 1;
+				box.style.left = pos+'px';
+				if(pos == '10') box.style.background = 'blue';
+			}
+		}
+
+		function MoveLeft(){
+			if (pos >= 250){
+				clearInterval(TimeLeft)
+				pos = 0;
+				box.style.background = 'red';
+				TimeRight = setInterval(MoveRight, 10);
+				containerLeft = parseInt(containerLeft) - 1 + 'px';
+				container.style.borderLeftWidth = containerLeft;
+			}
+			else{
+				
+				pos += 1;
+				if(pos == '10') box.style.background = 'blue';
+				box.style.left = 250 - pos + 'px';
+			}
+		}
+
+		function MoveBottom(){
+			if(vertical >= 250){
+				vertical = 0;
+				clearInterval (TimeBottom);
+				box.style.background = 'red';
+				TimeTop = setInterval(MoveTop, 10);
+				containerBottom = parseInt(containerBottom) - 1 + 'px';
+				container.style.borderBottomWidth = containerBottom;
+			}
+			else{
+				vertical += 0.3;
+				if(vertical > '2.9' && vertical < '3'){ 
+					box.style.background = 'blue';
+				}
+				box.style.top = vertical+'px';
+			}
+		}
+
+		function MoveTop(){
+			if(vertical >= 250){
+				vertical = 0;
+				clearInterval(TimeTop);
+				box.style.background = 'red';
+				TimeBottom = setInterval(MoveBottom, 10);
+				containerTop = parseInt(containerTop) - 1 + 'px';
+				container.style.borderTopWidth = containerTop;
+			}
+			else{
+				vertical += 0.3;
+				if(vertical > '2.9' && vertical < '3'){ 
+					box.style.background = 'blue';
+				}
+				box.style.top = 250 - vertical + 'px'; 
+			}
+		}
+
+
+	</script>
+</body>
+</html>
