@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>SoloLern</title>
 	<style>
+		body{
+			margin-top: 100px;
+		}
 		#container{
 			width: 300px;
 			height: 300px;
@@ -20,16 +23,35 @@
 			background: blue;
 
 		}
+		#btn1,#btn2,#btn3,#btn4{
+			width: 50px;
+			height: 50px;
+			background: yellow;
+			position: relative;
+			margin: 0 auto;
+			cursor: pointer;
+		}
+		#btn3{
+			top: -280px;
+			left: 230px;
+		}
+		#btn4{
+			top: -330px;
+			right: 230px;
+		}
 
 	</style>
 </head>
 <body>
-
+		<div id="btn1" onclick="btn1()"></div>
 		<div id="container">
 			<div id="box">
 				
 			</div>
 		</div>
+		<div id="btn2" onclick="btn2()"></div>
+		<div id="btn3" onclick="btn3()"></div>
+		<div id="btn4" onclick="btn4()"></div>
 
 
 	<script>
@@ -39,15 +61,17 @@
 		var box = document.getElementById('box');
 		var container = document.getElementById('container');
 
-		container.style.borderRightWidth = '6px';
-		container.style.borderLeftWidth = '6px';
-		container.style.borderTopWidth = '6px';
-		container.style.borderBottomWidth = '6px';
+		container.style.borderRightWidth = '2px';
+		container.style.borderLeftWidth = '2px';
+		container.style.borderTopWidth = '2px';
+		container.style.borderBottomWidth = '2px';
 
 		var containerRight = container.style.borderRightWidth;
 		var containerLeft = container.style.borderLeftWidth;
 		var containerTop = container.style.borderTopWidth;
 		var containerBottom = container.style.borderBottomWidth;
+
+		var check = true;
 
 		var TimeRight = setInterval(MoveRight, 10);
 		var TimeLeft;
@@ -55,23 +79,29 @@
 		var TimeTop;
 
 		function MoveRight(){
-			if(pos >= 250){
-				clearInterval(TimeRight);
-				pos = 0;
-				box.style.background = 'red';
-				TimeLeft = setInterval(MoveLeft, 10);
-				containerRight = parseInt(containerRight) - 2 + 'px';
-				container.style.borderRightWidth = containerRight;
+			if(pos >= 250 && parseInt(containerRight) > 0 && check == true){
+				
+					clearInterval(TimeRight);
+					pos = 0;
+					box.style.background = 'red';
+					TimeLeft = setInterval(MoveLeft, 10);
+					containerRight = parseInt(containerRight) - 2 + 'px';
+					container.style.borderRightWidth = containerRight;	
 			}
 			else{
 				pos += 1;
 				box.style.left = pos+'px';
 				if(pos == '10') box.style.background = 'blue';
+
+				if(pos>= 250 && parseInt(containerRight) <= 0){
+					check = false;
+					destroyBox();
+				}
 			}
 		}
 
 		function MoveLeft(){
-			if (pos >= 250){
+			if (pos >= 250 && parseInt(containerLeft)>0 && check == true){
 				clearInterval(TimeLeft)
 				pos = 0;
 				box.style.background = 'red';
@@ -84,11 +114,16 @@
 				pos += 1;
 				if(pos == '10') box.style.background = 'blue';
 				box.style.left = 250 - pos + 'px';
+
+				if(pos>= 250 && parseInt(containerLeft) <= 0){
+					check = false;
+					destroyBox();
+				}
 			}
 		}
 
 		function MoveBottom(){
-			if(vertical >= 250){
+			if(vertical >= 250 && parseInt(containerBottom) > 0 && check == true){
 				vertical = 0;
 				clearInterval (TimeBottom);
 				box.style.background = 'red';
@@ -102,11 +137,16 @@
 					box.style.background = 'blue';
 				}
 				box.style.top = vertical+'px';
+
+				if(vertical >= 250 && parseInt(containerBottom) <= 0){
+					check = false;
+					destroyBox();
+				}
 			}
 		}
 
 		function MoveTop(){
-			if(vertical >= 250){
+			if(vertical >= 250 && parseInt(containerTop) > 0 && check == true){
 				vertical = 0;
 				clearInterval(TimeTop);
 				box.style.background = 'red';
@@ -120,8 +160,49 @@
 					box.style.background = 'blue';
 				}
 				box.style.top = 250 - vertical + 'px'; 
+
+				if(vertical >= 250 && parseInt(containerTop) <= 0){
+					check = false;
+					destroyBox();
+				}
 			}
 		}
+
+		function destroyBox(){
+			var computedStyle = getComputedStyle(box);
+			console.log(parseInt(computedStyle.width));
+			box.style.width = parseInt(computedStyle.width) - 1 + 'px';
+			box.style.height = parseInt(computedStyle.height) - 1 + 'px';
+			if(parseInt(computedStyle.width) == 1){
+				clearInterval(TimeRight);
+				clearInterval(TimeLeft)
+				clearInterval (TimeBottom);
+				clearInterval(TimeTop);
+				box.style.background = '#fff';
+			}
+
+		}
+
+		function btn1(){
+			containerTop = parseInt(containerTop) + 2 + 'px';
+			container.style.borderTopWidth = containerTop;
+		}
+
+		function btn2(){
+			containerBottom = parseInt(containerBottom) + 2 + 'px';
+			container.style.borderBottomWidth = containerBottom;
+		}
+		
+		function btn3(){
+			containerRight = parseInt(containerRight) + 2 + 'px';
+			container.style.borderRightWidth = containerRight;	
+		}
+		
+		function btn4(){
+			containerLeft = parseInt(containerLeft) + 2 + 'px';
+			container.style.borderLeftWidth = containerLeft;
+		}
+
 
 
 	</script>
